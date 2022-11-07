@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Check % Blocked Players
-// @author       Im Kumin
-// @author       Always Alone AKA Alfa
-// @include      **screen=info_player&id*
-// ==/UserScript==
+//name         Check % Blocked Players
+//author       Im Kumin
+//author       Always Alone AKA Alfa
+//include      **screen=info_player&id*
+//==/UserScript==
 
 
 /* BLOQUEIO DE ATAQUES */
