@@ -18,46 +18,74 @@ let playerPoints = parseInt(jQuery('#player_info tbody tr:eq(2) td:eq(1)').text(
 let playerDown = parseInt(playerPoints - (playerPoints * blockRatio));
 let playerUp = parseInt(playerPoints + (playerPoints * blockRatio));
 
-
-let missao = `<div class="quest opened" id="player20" style="background-image: url('https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png');"><div class="quest_progress"></div><div class="quest_new pt">Novo</div></div>`
-$(".questlog").eq(0).prepend(missao);
+let missaoplayer = `<div class="quest opened" id="player20" style="background-image: url('https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png');"><div class="quest_progress"></div><div class="quest_new pt">Novo</div></div>`
+$(".questlog").eq(0).prepend(missaoplayer);
 let boxplayer = document.querySelector("#player20");
 if (boxplayer) {
-    boxplayer.addEventListener("click", loadMembro, false);
+    boxplayer.addEventListener("click", createInterface);
 }
 
-function loadMembro() {
-    let content = `
-    <div id="" align=center style="width:700px; margin-top:25px; margin-bottom:25px">
-       <h1 align=center>Jogador</h1>
-       <table id="player" class="vis" align=center>
-          <tr>
-             <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/unit_knight.png" alt=""> Jogador</th>
-             <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Posição</th>
-             <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Pontos</th>
-          </tr>
-          <tr>
-             <td style="text-align: center"><a>${playerName}</a></td>
-             <td style="text-align: center">${playerposition}</td>
-             <td style="text-align: center">${playerPoints}</td>
-          </tr>
-       </table>
-       <br>
-       <h1 align=center>Atacáveis</h1>
+function onClickGenerateBtn(villages, players, tribes) {
+    jQuery(this).addClass('btn-confirm-yes');
+    let addnumber = document.querySelector("#numbers").textContent;
+    const popupContent = `
+	   <h1 align=center>Atacáveis</h1>
        <table id="minimo" class="vis" align=center>
           <tr>
-             <th width="120" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/unit_knight.png" alt=""> Jogador</th>
-             <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Pontos</th>
-             <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/account.png" alt=""> Tribo</th>
-             <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/map2.png" alt=""> Aldeias</th>
-          </tr>
-       </table>
-    </div>
-    `;
-    Dialog.show('Supportfilter', content);
-
+              <th width="120" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/unit_knight.png" alt=""> Jogador</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Pontos</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/account.png" alt=""> Tribo</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/map2.png" alt=""> Aldeias</th>
+           </tr>
+        </table>
+     </div>
+     `;
+    Dialog.show('content', popupContent);
     fetchPlayers();
 }
+
+function createInterface() {
+        var loadscript = document.createElement('div');
+        htmlString = '<div>\
+        <h1 align=center>Check % Blocked Players</h1>\
+        <table id="player" class="vis" align=center>\
+           <tr>\
+              <th width="100" class="nowrap"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/unit_knight.png" alt=""> Jogador</th>\
+              <th width="100" class="nowrap"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/att.png" alt=""> Posição</th>\
+              <th width="100" class="nowrap"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/att.png" alt=""> Pontos</th>\
+           </tr>\
+           <tr>\
+              <td style="text-align: center"><a>'+ playerName +'</a></td>\
+              <td style="text-align: center">'+ playerposition +'</td>\
+              <td style="text-align: center">'+ playerPoints +'</td>\
+           </tr>\
+           <tr>\
+              <td></td>\
+              <td></td>\
+              <td>\
+                 <input type="number" placeholder="points to insert" id="numbers" style="text-align:center">\
+              </td>\
+           </tr>\
+           <tr>\
+              <td></td>\
+              <td style="text-align:center">\
+                 <div>\
+				    <a class="btn" id="confir">Submit</a>\
+			     </div>\
+              </td>\
+              <td></td>\
+           </tr>\
+        </table>\
+    </div>\
+         ';
+        loadscript.innerHTML = htmlString;
+        content_value.prepend(loadscript.firstChild);
+
+        let boxsubmit = document.querySelector("#confir");
+        if (boxsubmit) {
+            boxsubmit.addEventListener("click", onClickGenerateBtn);
+}
+    }
 
 function fetchPlayers(){
     const playersUrl = "https://" + window.location.host + "/map/player.txt";
@@ -93,7 +121,7 @@ function addPlayerToTable(elemId, playerObject) {
           <td style="text-align: center">${playerObject.points}</td>
           <td style="text-align: center">
              <a target="_blank" href="/game.php?village=${game_data.village.id}&screen=info_ally&id=${playerObject.tribe}">
-                ${(playerObject.tribe).replace('45','-[L]-').replace('1','IFI').replace('3','LEGION').replace('4','LEGION').replace('8','IFII')}
+                ${playerObject.tribe}
              </a>
           </td>
           <td style="text-align: center">${playerObject.aldeias}</td>
