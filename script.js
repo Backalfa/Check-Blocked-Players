@@ -1,6 +1,7 @@
 // ==UserScript==
 //name         Check % Blocked Players
 //author       Im Kumin
+//version      2.1
 //author       Always Alone AKA Alfa
 //include      **screen=info_player&id*
 //==/UserScript==
@@ -27,15 +28,14 @@ if (boxplayer) {
 
 function onClickGenerateBtn(villages, players, tribes) {
     jQuery(this).addClass('btn-confirm-yes');
-    let addnumber = document.querySelector("#numbers").textContent;
     const popupContent = `
-	   <h1 align=center>Atacáveis</h1>
-       <table id="minimo" class="vis" align=center>
+	   <h1 align=center>Attackable Table</h1><br>
+       <table id="atmw" class="vis" align=center>
           <tr>
-              <th width="120" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/unit_knight.png" alt=""> Jogador</th>
-              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Pontos</th>
-              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/account.png" alt=""> Tribo</th>
-              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/map2.png" alt=""> Aldeias</th>
+              <th width="120" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/unit_knight.png" alt=""> Player</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Points</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/account.png" alt=""> Tribe</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/map2.png" alt=""> Villages</th>
            </tr>
         </table>
      </div>
@@ -47,12 +47,12 @@ function onClickGenerateBtn(villages, players, tribes) {
 function createInterface() {
         var loadscript = document.createElement('div');
         htmlString = '<div>\
-        <h1 align=center>Check % Blocked Players</h1>\
+        <h1 align=center>Blocked Players</h1>\
         <table id="player" class="vis" align=center>\
            <tr>\
-              <th width="100" class="nowrap"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/unit_knight.png" alt=""> Jogador</th>\
-              <th width="100" class="nowrap"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/att.png" alt=""> Posição</th>\
-              <th width="100" class="nowrap"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/att.png" alt=""> Pontos</th>\
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/unit_knight.png" alt=""> Player</th>\
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/att.png" alt=""> Rank</th>\
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/'+ game_data.version.split(" ")[0] +'/graphic/unit/att.png" alt=""> Points</th>\
            </tr>\
            <tr>\
               <td style="text-align: center"><a>'+ playerName +'</a></td>\
@@ -101,10 +101,15 @@ function fetchPlayers(){
                 points: line[4],
                 rank: line[5]
             };
+
+            let addnumber = parseInt(document.querySelector("#numbers").value);
+            let small = parseInt(playerDown + addnumber);
+            let bigger = parseInt(playerUp + addnumber);
+
             if(playerObject.name == playerName)
                 continue;
-            if(playerObject.points <= parseInt(playerUp) && playerObject.points >= parseInt(playerDown))
-                addPlayerToTable("minimo", playerObject);
+            if(playerObject.points <= parseInt(bigger) && playerObject.points >= parseInt(small))
+                addPlayerToTable("atmw", playerObject);
         }
     });
 }
