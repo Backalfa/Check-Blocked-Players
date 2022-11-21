@@ -36,6 +36,7 @@ function onClickGenerateBtn(villages, players, tribes) {
               <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png" alt=""> Points</th>
               <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/account.png" alt=""> Tribe</th>
               <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/map2.png" alt=""> Villages</th>
+              <th width="100" class="nowrap" style="text-align:center"><img src="https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/icons/map2.png" alt="">Message</th>
            </tr>
         </table>
      </div>
@@ -68,6 +69,16 @@ function createInterface() {
            </tr>\
            <tr>\
               <td></td>\
+              <th style="text-align: center">Minimum Attackable</th>\
+              <th style="text-align: center">Maximum Attackable</th>\
+           </tr>\
+           <tr>\
+              <td></td>\
+              <td style="text-align: center">' + playerDown +'</td>\
+              <td style="text-align: center">' + playerUp + '</td>\
+           </tr>\
+           <tr>\
+              <td></td>\
               <td style="text-align:center">\
                  <div>\
 				    <a class="btn" id="confir">Submit</a>\
@@ -86,6 +97,26 @@ function createInterface() {
             boxsubmit.addEventListener("click", onClickGenerateBtn);
 }
     }
+
+function fetchally(){
+    const allysUrl = "https://" + window.location.host + "/map/ally.txt";
+    $.get(allysUrl, function (data) {
+        const lines = data.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].split(",");
+            const allyObject = {
+                id: line[0],
+                name: line[1],
+                tags: line[2],
+                members: line[3],
+                villages: line[4],
+                points: line[5],
+                all_points: line[6],
+                rank: line[7]
+            };
+       }
+    });
+}
 
 function fetchPlayers(){
     const playersUrl = "https://" + window.location.host + "/map/player.txt";
@@ -114,6 +145,15 @@ function fetchPlayers(){
     });
 }
 
+function comparfetch( playerObject, allyObject){
+    let tribename = function(){
+        if ( playerObject.tribe == allyObject.id){
+            return allyObject.tags;}
+    };
+    fetchally();
+    fetchPlayers();
+}
+
 function addPlayerToTable(elemId, playerObject) {
     console.log(playerObject);
     document.getElementById(elemId).innerHTML += `
@@ -130,6 +170,9 @@ function addPlayerToTable(elemId, playerObject) {
              </a>
           </td>
           <td style="text-align: center">${playerObject.aldeias}</td>
+          <td style="text-align: center">
+          <a target="_blank" href="/game.php?village=${game_data.village.id}&screen=mail&mode=new&player=${playerObject.id}&name=${playerObject.name}">Send Message</a>
+          </td>
        </tr>
     `;
 }
