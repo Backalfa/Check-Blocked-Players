@@ -12,12 +12,12 @@ let blockPercentage = 20 ;
 
 /* PROGRAMAÇÃO */
 
-let blockRatio = blockPercentage / 100;
+let blockRatio = ((blockPercentage / 100) + 1);
 let playerName = jQuery('#player_info tbody tr:eq(0) th').text().trim();
 let playerposition = jQuery('#player_info tbody tr:eq(3) td:eq(1)').text().trim();
 let playerPoints = parseInt(jQuery('#player_info tbody tr:eq(2) td:eq(1)').text().trim().replaceAll('.',''));
-let playerDown = parseInt(playerPoints - (playerPoints * blockRatio));
-let playerUp = parseInt(playerPoints + (playerPoints * blockRatio));
+let playerDown = parseInt(playerPoints / blockRatio);
+let playerUp = parseInt(playerPoints * blockRatio);
 
 let missaoplayer = `<div class="quest opened" id="player20" style="background-image: url('https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png');"><div class="quest_progress"></div><div class="quest_new pt">Novo</div></div>`
 $(".questlog").eq(0).prepend(missaoplayer);
