@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Check % Blocked Players (forum)
-// @author       Always Alone AKA Alfa
-// @author       Im Kumin
-// @version      2.3
-// @include      **screen=info_player&id*
+// name         Check % Blocked Players (forum)
+// author       Always Alone AKA Alfa
+// author       Im Kumin
+// version      2.3
+// include      **screen=info_player&id*
 // ==/UserScript==
 
 
