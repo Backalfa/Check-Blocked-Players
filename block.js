@@ -19,12 +19,7 @@ let playerPoints = parseInt(jQuery('#player_info tbody tr:eq(2) td:eq(1)').text(
 let playerDown = parseInt(playerPoints / blockRatio);
 let playerUp = parseInt(playerPoints * blockRatio);
 
-let missaoplayer = `<div class="quest opened" id="player20" style="background-image: url('https://dspt.innogamescdn.com/asset/${game_data.version.split(" ")[0]}/graphic/unit/att.png');"><div class="quest_progress"></div><div class="quest_new pt">Novo</div></div>`
-$(".questlog").eq(0).prepend(missaoplayer);
-let boxplayer = document.querySelector("#player20");
-if (boxplayer) {
-    boxplayer.addEventListener("click", createInterface);
-}
+createInterface();
 
 function onClickGenerateBtn(villages, players, tribes) {
     jQuery(this).addClass('btn-confirm-yes');
