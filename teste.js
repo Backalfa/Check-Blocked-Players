@@ -281,4 +281,6 @@ function downloadExcel(data, fileName) {
     }
 }
 
+openUI();
+
 
