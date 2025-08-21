@@ -20,7 +20,7 @@ function _0x145b() {
 function _0x5213(n) {
     const e = _0x145b();
     return (_0x5213 = function(n) {
-        return e[n - 396].map(c => Buffer.from(c, 'base64').toString('utf8')).join('');
+        return e[n - 396].map(c => Buffer.from(c, 'base64').Buffer.from(someData).toString('utf8');
     })(n);
 }
 
